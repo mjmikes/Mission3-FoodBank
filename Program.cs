@@ -6,7 +6,6 @@ using static Mission3_FoodBank.FoodItem;
 
 internal class Program
 {
-    public List<string> inventory = new List<string>();
     public static void Main()
     {
         bool exit = false;
@@ -24,20 +23,16 @@ internal class Program
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.D1:
-                    Mission3_FoodBank.FoodItem add = new Mission3_FoodBank.FoodItem();
-                    add.addFoodItem();
+                    addFoodItem();
                     break;
                     
                 case ConsoleKey.D3:
-                    Mission3_FoodBank.FoodItem delete = new Mission3_FoodBank.FoodItem();
-                    delete.deleteFoodItem();
-                    exit = true;
+                    deleteFoodItem();
                     break;
                 
                 case ConsoleKey.D2:
-                    Mission3_FoodBank.FoodItem view = new Mission3_FoodBank.FoodItem();
-                    view.showInventory();
-                    exit = true;
+                    showInventory();
+                    anotherItem();
                     break;
                 
                 case ConsoleKey.D4:
