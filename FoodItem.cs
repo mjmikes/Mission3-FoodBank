@@ -27,23 +27,63 @@ public class FoodItem
         anotherItem();
 
     }
+
     public static void addFoodItem()
     {
-        Console.WriteLine($"Loading Pantry...");
+        Console.WriteLine("Loading Pantry...");
         System.Threading.Thread.Sleep(1000);
         Console.Clear();
-        Console.WriteLine("Please enter the name of the food item:");
-        string name = Console.ReadLine();
-        Console.WriteLine("Please enter the category of the food item:");
-        string category = Console.ReadLine();
-        Console.WriteLine("Please enter the quantity of the food item in units:");
-        int quantity = int.Parse(Console.ReadLine());
-        Console.WriteLine("Please enter the expiration date in mm/dd/yyyy format:");
-        string expirationDate = Console.ReadLine();
-        Console.WriteLine($"Adding item...");
+
+        // Get Item Name (Non-Empty)
+        string name;
+        do
+        {
+            Console.WriteLine("Please enter the name of the food item:");
+            name = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(name))
+                Console.WriteLine("❌ Name cannot be empty. Please try again.\n");
+        } while (string.IsNullOrWhiteSpace(name));
+
+        // Get Category (Non-Empty)
+        string category;
+        do
+        {
+            Console.WriteLine("Please enter the category of the food item:");
+            category = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(category))
+                Console.WriteLine("❌ Category cannot be empty. Please try again.\n");
+        } while (string.IsNullOrWhiteSpace(category));
+
+        // Get Quantity (Must be a positive integer)
+        int quantity;
+        do
+        {
+            Console.WriteLine("Please enter the quantity of the food item in units:");
+            if (!int.TryParse(Console.ReadLine(), out quantity) || quantity <= 0)
+            {
+                Console.WriteLine("❌ Invalid input. Please enter a positive number.\n");
+            }
+        } while (quantity <= 0);
+
+        // Get Expiration Date (Must be valid date)
+        DateTime expirationDate;
+        do
+        {
+            Console.WriteLine("Please enter the expiration date in MM/dd/yyyy format:");
+            if (!DateTime.TryParseExact(Console.ReadLine(), "MM/dd/yyyy", null,
+                    System.Globalization.DateTimeStyles.None, out expirationDate))
+            {
+                Console.WriteLine("❌ Invalid date format. Please enter the date in MM/dd/yyyy format.\n");
+            }
+        } while (expirationDate == default);
+
+        // Confirm Addition
+        Console.WriteLine("Adding item...");
         System.Threading.Thread.Sleep(1000);
         Console.Clear();
-        StoreItem(name, category, quantity, DateTime.Parse(expirationDate));
+
+        // Store the item
+        StoreItem(name, category, quantity, expirationDate);
     }
 
     public static void anotherItem()
@@ -81,7 +121,7 @@ public class FoodItem
                 }
                 else
                 {
-                        Console.WriteLine("Which item would you like to delete?");
+                        Console.WriteLine("Which item would you like to delete? Press 'Enter' to confirm.");
                         int itemNumber = int.Parse(Console.ReadLine());
                         string saveName = inventory[itemNumber - 1].Name;
                         inventory.RemoveAt(itemNumber - 1);

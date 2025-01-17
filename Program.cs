@@ -41,6 +41,11 @@ internal class Program
                     Console.Clear();
                     exit = true;
                     break;
+                
+                default:
+                    Console.WriteLine("\n❌ Invalid input! Please enter a number between 1 and 4.");
+                    System.Threading.Thread.Sleep(1500);  // Pause to let the user read the message
+                    break;
             }
         }
     }
