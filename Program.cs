@@ -8,10 +8,11 @@ internal class Program
 {
     public static void Main()
     {
-        bool exit = false;
+        bool exit = false; // Iniitalize boolean for while loop
         
         while (!exit)
         {
+            // Dsiplay Menu
             Console.Clear();
             Console.WriteLine("Welcome to the Food Bank Inventory System!");
             Console.WriteLine("How can we help you?");
@@ -19,7 +20,8 @@ internal class Program
             Console.WriteLine("2. View Inventory");
             Console.WriteLine("3. Delete an item");
             Console.WriteLine("4. Exit Program");
-
+            
+            // logic to call the correct method based off user input (numberpad not allowed, must use digits near top of keyboard)
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.D1:
@@ -42,8 +44,9 @@ internal class Program
                     exit = true;
                     break;
                 
+                //Error handling for invalid user input
                 default:
-                    Console.WriteLine("\n❌ Invalid input! Please enter a number between 1 and 4.");
+                    Console.WriteLine("\n Invalid input! Please enter a number between 1 and 4.");
                     System.Threading.Thread.Sleep(1500);  // Pause to let the user read the message
                     break;
             }
