@@ -47,7 +47,7 @@ internal class Program
                 //Error handling for invalid user input
                 default:
                     Console.WriteLine("\n Invalid input! Please enter a number between 1 and 4.");
-                    System.Threading.Thread.Sleep(1500);  // Pause to let the user read the message
+                    System.Threading.Thread.Sleep(2000);  // Pause to let the user read the message
                     break;
             }
         }
