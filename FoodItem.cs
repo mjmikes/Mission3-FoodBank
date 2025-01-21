@@ -125,34 +125,53 @@ public class FoodItem
                     anotherItem();
                 }
                 else
-                { // deletion process, displays inventory and allows user to delete items based on index
-                        Console.WriteLine("Which item would you like to delete? Press 'Enter' to confirm.");
-                        int itemNumber = int.Parse(Console.ReadLine());
-                        string saveName = inventory[itemNumber - 1].Name;
-                        inventory.RemoveAt(itemNumber - 1);
-                        showInventory();
-                        Console.WriteLine($"Item Removed: {saveName}");
-                        Console.WriteLine("1. Delete Another Item");
-                        Console.WriteLine("2. Return to Main Menu");
+                { bool validInput = false;
+                    int itemNumber = 0;
 
+                    while (!validInput)
+                    {
+                        Console.WriteLine("Which item would you like to delete (enter index)? Press 'Enter' to confirm.");
+                        string input = Console.ReadLine();
 
-                        switch (Console.ReadKey(true).Key)
+                        if (int.TryParse(input, out itemNumber) && itemNumber > 0 && itemNumber <= inventory.Count)
                         {
-                            case ConsoleKey.D1:
-                                break;
+                            validInput = true;
+                            string saveName = inventory[itemNumber - 1].Name;
+                            inventory.RemoveAt(itemNumber - 1);
+                            Console.WriteLine($"{saveName} has been removed from the inventory.");
 
-                            case ConsoleKey.D2:
-                                stay = Console.ReadLine();
-                                break;
+                            showInventory();
+
+                            Console.WriteLine("1. Delete Another Item");
+                            Console.WriteLine("2. Return to Main Menu");
+
+                            bool validChoice = false;
+                            while (!validChoice)
+                            {
+                                switch (Console.ReadKey(true).Key)
+                                {
+                                    case ConsoleKey.D1:
+                                        validChoice = true; // Loop will continue
+                                        break;
+
+                                    case ConsoleKey.D2:
+                                        validChoice = true; // Loop will exit
+                                        break;
+
+                                    default:
+                                        Console.WriteLine("Please press 1 to delete another item, or 2 to return to the main menu.");
+                                        break;
+                                }
+                            }
                         }
+                        else
+                        {
+                            Console.WriteLine("Invalid index. Please enter a number corresponding to an item.");
+                        }
+                    }
                 }
-            
-                
             }
         }
-       
-        
-        
     }
 
     public static void showInventory()
