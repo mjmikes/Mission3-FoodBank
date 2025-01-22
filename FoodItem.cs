@@ -93,7 +93,7 @@ public class FoodItem
 
     public static void anotherItem()
     {
-        Console.WriteLine($"Would you like to add an additional item?");
+        Console.WriteLine($"Would you like to add an item?");
         Console.WriteLine("1. Add item");
         Console.WriteLine("2. Return to Main Menu");
 
@@ -130,7 +130,7 @@ public class FoodItem
 
                     while (!validInput)
                     {
-                        Console.WriteLine("Which item would you like to delete (enter index)? Press 'Enter' to confirm.");
+                        Console.WriteLine("Which item would you like to delete (enter ID)? Press 'Enter' to confirm.");
                         string input = Console.ReadLine();
 
                         if (int.TryParse(input, out itemNumber) && itemNumber > 0 && itemNumber <= inventory.Count)
@@ -180,8 +180,9 @@ public class FoodItem
         Console.WriteLine($"Loading Pantry...");
         System.Threading.Thread.Sleep(1000);
         Console.Clear();
-        Console.WriteLine("--INVENTORY--");
-        Console.WriteLine($"   NAME       CATEGORY       QUANTITY       EXPIRATION DATE");
+        Console.WriteLine("{0,-5} {1,-50} {2,-15} {3,-10} {4,-12}",
+            "ID", "NAME", "CATEGORY", "QUANTITY", "EXPIRATION");
+        Console.WriteLine(new string('-', 95)); // Separator line
         if (inventory.Count == 0)
             Console.WriteLine("No inventory available.");
         else
@@ -197,8 +198,8 @@ public class FoodItem
                 {
                     Console.ForegroundColor = ConsoleColor.Green;  // 🟢 Fresh items in green
                 }
-                Console.WriteLine(
-                    $"{i + 1}. {inventory[i].Name}     {inventory[i].Category}     {inventory[i].Quantity}     {inventory[i].Date}");
+                Console.WriteLine("{0,-5} {1,-50} {2,-15} {3,-10} {4,-12:MM/dd/yyyy}",
+                    i + 1, inventory[i].Name, inventory[i].Category, inventory[i].Quantity, inventory[i].Date);
                 // Reset color after each item
                 Console.ResetColor();
             }
