@@ -188,7 +188,7 @@ public class FoodItem
         {
             for (int i = 0; i < inventory.Count; i++)
             {
-                // Check if the item is expired. If so, display the line in red. if item is within 7 days of expiring, display the item in yellow. 
+                // Check if the item is expired. If so, display the line in red
                 if (inventory[i].Date < DateTime.Now)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;  // 🔴 Expired items in red
